@@ -52,7 +52,7 @@ export const allUsers = (async (req,res)=>{
 export const loginUser = (async (req,res)=>{
     const {email,password} = req.body
     const user = await User.findOne({email})
-    if(user && await bcrypt.compare(password,user.password)){
+    if(user && (await bcrypt.compare(password,user.password))){
         const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1hr'})
         res.cookie('token',token,{
             httpOnly:true
