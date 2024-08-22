@@ -4,14 +4,14 @@ import Register from "./Register.jsx";
 import { useState } from "react";
 import { LogIn } from "lucide-react";
 import Login from "./Login.jsx";
+import store, { loginAction } from "./store/LoginContext.jsx";
 export default function Header(){
     const navigate = useNavigate()
     const register = ()=>{
         navigate('/register')
     }
-    const [show,set] = useState(false)
     const login = ()=>{
-        set(!show)
+        store.dispatch(loginAction.toggle())   
     }
     return (
         <div className='top-0 w-full'>
