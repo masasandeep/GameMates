@@ -14,7 +14,7 @@ export default function Header(){
         set(!show)
     }
     return (
-        <div className='top-0 fixed w-full'>
+        <div className='top-0 w-full'>
         <div className="bg-violet-900 flex flex-row items-center justify-between text-white w-full p-2">
             <div className="flex basis-4/5 items-end justify-center w-full text-3xl font-bold">
             GAMEMATES
