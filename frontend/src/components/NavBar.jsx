@@ -1,15 +1,20 @@
-export default function NavBar(){
-    const contents = [
-        'homepage',
-        'empty_1',
-        'empty_2',
-        'empty_3'
-    ]
+const data = [
+    'About',
+    'Services',
+    'Login',
+    'Register'
+  ]
+  const Navbar = () => {
     return (
-        <div className='bg-violet-950 text-white flex flex-row items-center justify-between'>
-            {contents.map((content=>(
-                <p className='w-full flex items-center justify-center'>{content}</p>
-            )))}
+      <div className='flex justify-around items-center p-3 text-lg font-bold'>
+          <div className="title">GameMates</div>
+          <ul className='flex space-x-5'>
+            {data.map(link=>(
+              <li className="hover:underline hover:decoration-cyan-400">{link}</li>
+            ))}
+          </ul>
         </div>
     )
-}
+  }
+  
+  export default Navbar
