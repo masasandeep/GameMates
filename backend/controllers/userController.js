@@ -3,21 +3,24 @@ import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 export const registerUser = asyncHandler(async (req,res)=>{
-    const {name,email,password} = req.body
-    if(!name || !email || !password){
-        res.status(400)
-        throw new Error('all fields are mandatory')
+    const {name,email,password,confirmPassword} = req.body
+    if(!name || !email || !password || !confirmPassword){
+        res.status(400).json({message:'all fields are mandatory'})
+        //throw new Error('all fields are mandatory')
     }
     const emailUsed = await User.findOne({email})
     if(emailUsed){
-        res.status(400)
-        throw new Error('email already in use')
+        res.status(400).json({message:'email already in use'})
+        //throw new Error('email already in use')
     }
     const nameUsed = await User.findOne({email})
     if(nameUsed){
-        res.status(400)
-        throw new Error('username exists')
+        res.status(400).json('username already taken')
+        //throw new Error('username exists')
 
+    }
+    if(password!==confirmPassword){
+        res.status(400).json({message:'passwords not matching!!!'})
     }
     const hashedPassword = await bcrypt.hash(password,10)
     const user = User.create({
@@ -53,13 +56,13 @@ export const loginUser = (async (req,res)=>{
     const {email,password} = req.body
     const user = await User.findOne({email})
     if(user && (await bcrypt.compare(password,user.password))){
-        const token = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1hr'})
+        const token = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1hr'})
         res.cookie('token',token,{
             httpOnly:true
         })
+        res.status(200).json({message:token})
     }else{
-        res.status(400).json(email)
-        throw new Error('user doesnot exist')
+        return res.status(400).json({message:'user doesnot exist bruh'})
     }
 
 })
