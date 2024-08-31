@@ -8,12 +8,11 @@ import store from './components/store/LoginContext';
 function App() {
   return (
     <div>
-      <Provider store={store}>
+      
 
       <Header />
       <Hero/>
       <Login />
-      </Provider>
     </div>
   );
 }

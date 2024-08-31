@@ -1,17 +1,21 @@
 import { useNavigate } from "react-router";
 import NavBar from "./NavBar.jsx";
-import Register from "./Register.jsx";
-import { useState } from "react";
-import { LogIn } from "lucide-react";
-import Login from "./Login.jsx";
+
 import store, { loginAction } from "./store/LoginContext.jsx";
+import { useSelector } from "react-redux";
 export default function Header(){
+    const accessToken = useSelector(state=>state.log.accessToken)
     const navigate = useNavigate()
     const register = ()=>{
         navigate('/register')
     }
     const login = ()=>{
         store.dispatch(loginAction.toggle())   
+    
+    }
+    const handleLogout = ()=>{
+        store.dispatch(loginAction.logout())
+        navigate('/')
     }
     return (
         <div className='top-0 w-full'>
@@ -20,11 +24,12 @@ export default function Header(){
             GAMEMATES
             </div>
             <div className="flex basis-1/5 w-full">
-                <div className='w-[80%] flex flex-row items-center justify-between p-2'>
+            {console.log(accessToken,'div')}
+                {accessToken ==='' ? <div className='w-[80%] flex flex-row items-center justify-between p-2'>
                     <button onClick={register}>Register</button>
                     <p>OR</p>
                     <button onClick={login}>LOGIN</button>
-                </div>
+                </div>:<button onClick={handleLogout} >Logout</button>}
             </div>
         </div>
         

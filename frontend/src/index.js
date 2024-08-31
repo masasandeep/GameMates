@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import {createBrowserRouter,RouterProvider} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
 import Register from './components/Register';
+import Profile from './components/Profile';
+import { Provider } from 'react-redux';
 import store from './components/store/LoginContext';
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
@@ -20,11 +21,20 @@ const router = createBrowserRouter([
   {
     path:'/register',
     element:<Register />
+  },
+  {
+    path:'/profile',
+    element:<Profile />
   }
 ])
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+    <RouterProvider router={router}>
+      <App />
+      <Profile />
+    </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );
 

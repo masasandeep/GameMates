@@ -1,6 +1,6 @@
 import { configureStore,createSlice } from "@reduxjs/toolkit";
 
-const initialLoginState = {show:false}
+const initialLoginState = {show:false,accessToken:''}
 
 const loginSlice = createSlice(
     {
@@ -9,6 +9,13 @@ const loginSlice = createSlice(
         reducers:{
             toggle(state){
                 state.show = !state.show
+            },
+            postLogin(state,action){
+                state.accessToken = action.payload.message
+            },
+            logout(state){
+                state.accessToken = ''
+                
             }
         }
     }

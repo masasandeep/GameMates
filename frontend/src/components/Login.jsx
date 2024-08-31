@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux"
 import Modal from "./Modal"
 import store, { loginAction } from "./store/LoginContext"
+import { useNavigate } from "react-router"
 export default function Login(){
     const toggle = useSelector(state=>state.log.show)
+    const navigate = useNavigate()
     const handleSubmit = async (e)=>{
         e.preventDefault()
+        
         const fd = new FormData(e.target)
         const data = Object.fromEntries(fd.entries())
         console.log(data.email,data.password)
@@ -28,6 +31,8 @@ export default function Login(){
             // If the response is OK, handle the data
             const responseData = await response.json();
             console.log('Success:', responseData);
+            store.dispatch(loginAction.postLogin(responseData))
+            navigate('/profile')
           }
         store.dispatch(loginAction.toggle())
 
