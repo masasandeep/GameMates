@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router"
 
 
 export default function Register(){
+    const navigate = useNavigate()
     const handleRegister= async (e)=>{
         e.preventDefault()
         const fd = new FormData(e.target)
@@ -20,6 +22,8 @@ export default function Register(){
         if(response.ok){
             const responseData = await response.json()
             console.log(responseData)
+            navigate('/')
+
         }
         else{
             const errorData = await response.json()

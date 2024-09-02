@@ -8,7 +8,7 @@ const cookieJwtAuth = (req,res,next)=>{
         next()
     }catch(err){
         res.clearCookie('token')
-        throw new Error('token expired')
+        return res.status(401).json({message:'token expired'})
     }
 }
 export default cookieJwtAuth

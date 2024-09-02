@@ -58,7 +58,9 @@ export const loginUser = (async (req,res)=>{
     if(user && (await bcrypt.compare(password,user.password))){
         const token = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1hr'})
         res.cookie('token',token,{
-            httpOnly:true
+            httpOnly:true,
+            secure:false, // Use HTTPS in production
+            sameSite: 'None', 
         })
         res.status(200).json({message:token})
     }else{

@@ -24,7 +24,6 @@ export default function Header(){
             GAMEMATES
             </div>
             <div className="flex basis-1/5 w-full">
-            {console.log(accessToken,'div')}
                 {accessToken ==='' ? <div className='w-[80%] flex flex-row items-center justify-between p-2'>
                     <button onClick={register}>Register</button>
                     <p>OR</p>

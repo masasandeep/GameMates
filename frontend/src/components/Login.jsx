@@ -10,7 +10,7 @@ export default function Login(){
         
         const fd = new FormData(e.target)
         const data = Object.fromEntries(fd.entries())
-        console.log(data.email,data.password)
+    
         const response = await fetch('http://localhost:5000/api/users/login',
             {
                 method:'POST',
@@ -20,7 +20,8 @@ export default function Login(){
                 body:JSON.stringify({
                 email:data.email,
                 password:data.password,  
-                })
+                }),
+                credentials: 'include' 
             }
         )
         if (!response.ok) {

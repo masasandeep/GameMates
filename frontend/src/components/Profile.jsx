@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './Header'
+import { useSelector } from 'react-redux'
 const Profile = () => {
+  const [ws,setWs] = useState(null)
+  const token = useSelector(state=>state.log.accessToken)
+
+  console.log(token)
+  useEffect(()=>{
+        
+    const connection = new WebSocket('ws://localhost:5001')
+    setWs(connection)
+    
+    connection.addEventListener('message',handleMessage)
+  },[])
+  const handleMessage = (e)=>{
+    console.log('new message',e)
+  }
   return (
     <div>
         <Header />
